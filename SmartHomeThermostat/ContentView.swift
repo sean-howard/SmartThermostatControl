@@ -9,18 +9,42 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            ZStack {
+                Color("Background")
+                    .ignoresSafeArea()
+
+                VStack(spacing: 0) {
+                    
+                    ThermometerView()
+                        .padding(.top, 30)
+                        .padding(.bottom, 60)
+                    
+                    HStack(spacing: 20) {
+                        ClimateCard(
+                            iconName: "humidity.fill",
+                            index: "Inside humidity",
+                            measure: "49%"
+                        )
+                        
+                        ClimateCard(
+                            iconName: "thermometer",
+                            index: "Outside temp.",
+                            measure: "-10°"
+                        )
+                    }
+                }
+            }
+            .navigationTitle("Thermostat")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .padding()
+        .navigationViewStyle(.stack)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

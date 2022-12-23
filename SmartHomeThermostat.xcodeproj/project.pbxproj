@@ -11,6 +11,14 @@
 		F615102629534443005D52A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615102529534443005D52A4 /* ContentView.swift */; };
 		F615102829534444005D52A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F615102729534444005D52A4 /* Assets.xcassets */; };
 		F615102B29534444005D52A4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F615102A29534444005D52A4 /* Preview Assets.xcassets */; };
+		F61510322953476A005D52A4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61510312953476A005D52A4 /* Extensions.swift */; };
+		F61510342953482E005D52A4 /* ClimateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61510332953482E005D52A4 /* ClimateCard.swift */; };
+		F615103629534B1E005D52A4 /* ThermometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103529534B1E005D52A4 /* ThermometerView.swift */; };
+		F615103829534B50005D52A4 /* ThermometerPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103729534B50005D52A4 /* ThermometerPlaceholderView.swift */; };
+		F615103A2953516D005D52A4 /* ThermometerDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61510392953516D005D52A4 /* ThermometerDialView.swift */; };
+		F615103C295354AF005D52A4 /* ThermometerSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */; };
+		F615103E29535609005D52A4 /* ThermometerScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103D29535609005D52A4 /* ThermometerScaleView.swift */; };
+		F6C0CC8429565738009382F1 /* ThermostatConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0CC8329565738009382F1 /* ThermostatConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,14 @@
 		F615102529534443005D52A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F615102729534444005D52A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F615102A29534444005D52A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F61510312953476A005D52A4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F61510332953482E005D52A4 /* ClimateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimateCard.swift; sourceTree = "<group>"; };
+		F615103529534B1E005D52A4 /* ThermometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerView.swift; sourceTree = "<group>"; };
+		F615103729534B50005D52A4 /* ThermometerPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerPlaceholderView.swift; sourceTree = "<group>"; };
+		F61510392953516D005D52A4 /* ThermometerDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerDialView.swift; sourceTree = "<group>"; };
+		F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerSummaryView.swift; sourceTree = "<group>"; };
+		F615103D29535609005D52A4 /* ThermometerScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerScaleView.swift; sourceTree = "<group>"; };
+		F6C0CC8329565738009382F1 /* ThermostatConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermostatConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +69,14 @@
 			children = (
 				F615102329534443005D52A4 /* SmartHomeThermostatApp.swift */,
 				F615102529534443005D52A4 /* ContentView.swift */,
+				F6C0CC8329565738009382F1 /* ThermostatConfiguration.swift */,
+				F615103529534B1E005D52A4 /* ThermometerView.swift */,
+				F615103D29535609005D52A4 /* ThermometerScaleView.swift */,
+				F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */,
+				F61510392953516D005D52A4 /* ThermometerDialView.swift */,
+				F615103729534B50005D52A4 /* ThermometerPlaceholderView.swift */,
+				F61510332953482E005D52A4 /* ClimateCard.swift */,
+				F61510312953476A005D52A4 /* Extensions.swift */,
 				F615102729534444005D52A4 /* Assets.xcassets */,
 				F615102929534444005D52A4 /* Preview Content */,
 			);
@@ -138,6 +162,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F615102629534443005D52A4 /* ContentView.swift in Sources */,
+				F615103629534B1E005D52A4 /* ThermometerView.swift in Sources */,
+				F615103829534B50005D52A4 /* ThermometerPlaceholderView.swift in Sources */,
+				F6C0CC8429565738009382F1 /* ThermostatConfiguration.swift in Sources */,
+				F61510342953482E005D52A4 /* ClimateCard.swift in Sources */,
+				F615103C295354AF005D52A4 /* ThermometerSummaryView.swift in Sources */,
+				F61510322953476A005D52A4 /* Extensions.swift in Sources */,
+				F615103E29535609005D52A4 /* ThermometerScaleView.swift in Sources */,
+				F615103A2953516D005D52A4 /* ThermometerDialView.swift in Sources */,
 				F615102429534443005D52A4 /* SmartHomeThermostatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +307,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +337,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
