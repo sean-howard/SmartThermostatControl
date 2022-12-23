@@ -61,7 +61,10 @@ struct ThermometerView: View {
             // MARK: Temperature Ring
             Circle()
                 .inset(by: 5)
-                .trim(from: config.minimumFractionalAngle, to: min(ringValue, config.maximumFractionalAngle))
+                .trim(
+                    from: config.minimumFractionalAngle,
+                    to: min(ringValue, config.maximumFractionalAngle)
+                )
                 .stroke(
                     LinearGradient([Color("Temperature Ring 1"), Color("Temperature Ring 2")]),
                         style: .init(lineWidth: 10.0, lineCap: .round, lineJoin: .round)

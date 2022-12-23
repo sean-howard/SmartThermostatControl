@@ -14,7 +14,7 @@ struct ThermostatConfiguration {
             minimum: 6,
             maximum: 35
         ),
-        numberOfMarkers: 51
+        numberOfMarkers: 50
     )
     
     let temperature: Temperature
