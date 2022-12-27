@@ -37,6 +37,8 @@ struct ThermostatConfiguration {
     
     var minimumAngle: CGFloat { temperature.minimum * degreesPerTemperatureUnit }
     var maximumAngle: CGFloat { temperature.maximum * degreesPerTemperatureUnit }
+    var angleRange: CGFloat { maximumAngle - minimumAngle }
+
     
     var minimumFractionalAngle: CGFloat { minimumAngle / 360 }
     var maximumFractionalAngle: CGFloat { maximumAngle / 360 }

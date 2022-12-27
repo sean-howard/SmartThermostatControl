@@ -14,8 +14,7 @@ struct ThermometerScaleView: View {
     private let horizontalPadding: CGFloat = 20
     private let verticalPadding: CGFloat = 25
 
-    private var degreeRange: CGFloat { config.maximumAngle - config.minimumAngle }
-    private var degreesOfSeparation: CGFloat { degreeRange / CGFloat(config.numberOfMarkers) }
+    private var degreesOfSeparation: CGFloat { config.angleRange / CGFloat(config.numberOfMarkers) }
     
     var body: some View {
         ZStack {
@@ -35,7 +34,7 @@ struct ThermometerScaleView: View {
                 .cornerRadius(20)
             Spacer()
         }
-        .rotationEffect(.degrees(config.minimumAngle - (degreesOfSeparation * 0.5)))
+        .rotationEffect(.degrees(config.minimumAngle))
         .rotationEffect(.degrees(Double(line) * degreesOfSeparation - 180.0))
     }
     
