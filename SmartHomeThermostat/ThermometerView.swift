@@ -100,14 +100,6 @@ struct ThermometerView: View {
                 showStatus: showStatus,
                 temperature: currentTemperature
             )
-            
-            VStack {
-                Text("x: \(x), y: \(y)")
-                Text("angle: \(angle.formatted())")
-                Text("degrees: \(degrees.formatted())")
-                Spacer()
-            }
-            .foregroundColor(.white)
         }
         .onAppear {
             currentTemperature = 22
