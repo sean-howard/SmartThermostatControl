@@ -59,10 +59,10 @@ struct ThermometerView: View {
         VStack {
             ZStack {
                 // MARK: Thermometer Scale
-                ThermometerScaleView()
+                ThermometerScaleView(currentDegrees: degrees)
                 
                 // MARK: Placeholder
-                ThermometerPlaceholderView()
+                ThermometerPlaceholderView().hidden()
                 
                 // MARK: Temperature Ring
                 Circle()
@@ -100,7 +100,6 @@ struct ThermometerView: View {
                                 degrees = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
                             })
                     )
-                    .disabled(true)
                 
                 ThermometerSummaryView(
                     status: status,
@@ -110,14 +109,18 @@ struct ThermometerView: View {
             }
             HStack {
                 Button {
-                    degrees -= temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                    if targetTemperature > config.temperature.minimum {
+                        degrees -= temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                    }
                 } label: {
                     Text("–")
                         .font(.largeTitle)
                 }
                 Spacer()
                 Button {
-                    degrees += temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                    if targetTemperature < config.temperature.maximum {
+                        degrees += temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                    }
                 } label: {
                     Text("+")
                         .font(.largeTitle)
