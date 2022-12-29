@@ -42,7 +42,7 @@ struct ThermometerDialView: View {
                 .frame(width: innerDialSize, height: innerDialSize)
             
             Circle()
-                .fill(LinearGradient([Color("Temperature Setpoint 1"), Color("Temperature Setpoint 1 2")]))
+                .fill(LinearGradient([Color("Temperature Setpoint 1"), Color("Temperature Setpoint 2")]))
                 .frame(width: setpointSize, height: setpointSize)
                 .frame(width: innerDialSize, height: innerDialSize, alignment: .top)
                 .offset(x: 0, y: 7.5)

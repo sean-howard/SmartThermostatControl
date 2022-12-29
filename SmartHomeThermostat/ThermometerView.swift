@@ -20,6 +20,8 @@ struct ThermometerView: View {
     private let ringSize: CGFloat = 220
     private let outerDialSize: CGFloat = 200
     
+    private let temperatureChangeIncrements: CGFloat = 0.5
+    
     @State private var currentTemperature: CGFloat = 0
     @State private var degrees: CGFloat = 36
     @State private var showStatus = false
@@ -29,7 +31,10 @@ struct ThermometerView: View {
     @State private var angle: CGFloat = 0
     
     var targetTemperature: CGFloat {
-        return min(max(degrees / 360 * config.markersOnCircumference, config.temperature.minimum), config.temperature.maximum)
+        let denominator: CGFloat = 2
+        let result: CGFloat = min(max(degrees / 360 * config.markersOnCircumference, config.temperature.minimum), config.temperature.maximum)
+        let rounded = round(denominator * result) / denominator
+        return rounded
     }
     
     var ringValue: CGFloat {
@@ -51,55 +56,67 @@ struct ThermometerView: View {
         .autoconnect()
     
     var body: some View {
-        ZStack {
-            // MARK: Thermometer Scale
-            ThermometerScaleView()
-            
-            // MARK: Placeholder
-            ThermometerPlaceholderView()
-            
-            // MARK: Temperature Ring
-            Circle()
-                .inset(by: 5)
-                .trim(
-                    from: config.minimumFractionalAngle,
-                    to: min(ringValue, config.maximumFractionalAngle)
-                )
-                .stroke(
-                    LinearGradient([Color("Temperature Ring 1"), Color("Temperature Ring 2")]),
+        VStack {
+            ZStack {
+                // MARK: Thermometer Scale
+                ThermometerScaleView()
+                
+                // MARK: Placeholder
+                ThermometerPlaceholderView()
+                
+                // MARK: Temperature Ring
+                Circle()
+                    .inset(by: 5)
+                    .trim(
+                        from: config.minimumFractionalAngle,
+                        to: min(ringValue, config.maximumFractionalAngle)
+                    )
+                    .stroke(
+                        LinearGradient([Color("Temperature Ring 1"), Color("Temperature Ring 2")]),
                         style: .init(lineWidth: 10.0, lineCap: .round, lineJoin: .round)
+                    )
+                    .frame(width: ringSize, height: ringSize)
+                    .rotationEffect(.degrees(90))
+                    .animation(.linear(duration: 1), value: ringValue)
+                
+                ThermometerDialView(degrees: degrees)
+                    .gesture(
+                        DragGesture()
+                            .onChanged({ value in
+                                let x = min(max(value.location.x, 0), outerDialSize)
+                                let y = min(max(value.location.y, 0), outerDialSize)
+                                
+                                self.x = x
+                                self.y = y
+                                
+                                let endPoint = CGPoint(x: x, y: y)
+                                let centerPoint = CGPoint(x: outerDialSize / 2, y: outerDialSize / 2)
+                                
+                                let angle = calculateAngle(centerPoint: centerPoint, endPoint: endPoint)
+                                
+                                if angle < config.minimumAngle || angle > config.maximumAngle { return }
+                                self.angle = angle
+                                
+                                degrees = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
+                            })
+                    )
+                
+                ThermometerSummaryView(
+                    status: status,
+                    showStatus: showStatus,
+                    temperature: currentTemperature
                 )
-                .frame(width: ringSize, height: ringSize)
-                .rotationEffect(.degrees(90))
-                .animation(.linear(duration: 1), value: ringValue)
-            
-            ThermometerDialView(degrees: degrees)
-                .gesture(
-                    DragGesture()
-                        .onChanged({ value in
-                            let x = min(max(value.location.x, 0), outerDialSize)
-                            let y = min(max(value.location.y, 0), outerDialSize)
-                            
-                            self.x = x
-                            self.y = y
-                            
-                            let endPoint = CGPoint(x: x, y: y)
-                            let centerPoint = CGPoint(x: outerDialSize / 2, y: outerDialSize / 2)
-                            
-                            let angle = calculateAngle(centerPoint: centerPoint, endPoint: endPoint)
-
-                            if angle < config.minimumAngle || angle > config.maximumAngle { return }
-                            self.angle = angle
-
-                            degrees = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
-                        })
-                )
-            
-            ThermometerSummaryView(
-                status: status,
-                showStatus: showStatus,
-                temperature: currentTemperature
-            )
+            }
+            HStack {
+                Button("-") {
+                    degrees -= temperatureChangeIncrements * config.degreesPerTemperatureUnit
+                }
+                Spacer()
+                Button("+") {
+                    degrees += temperatureChangeIncrements * config.degreesPerTemperatureUnit
+                }
+            }
+            .padding(.horizontal, 20)
         }
         .onAppear {
             currentTemperature = 22
@@ -109,10 +126,10 @@ struct ThermometerView: View {
             switch status {
                 case .heating:
                     showStatus = true
-                    currentTemperature += 1
+                    currentTemperature += temperatureChangeIncrements
                 case .cooling:
                     showStatus = true
-                    currentTemperature -= 1
+                    currentTemperature -= temperatureChangeIncrements
                 case .reaching:
                     showStatus = false
                     break

@@ -23,7 +23,7 @@ struct ThermostatConfiguration {
         let minimum: CGFloat
         let maximum: CGFloat
     }
-    
+
     /// Number of markers
     let numberOfMarkers: Int
     
@@ -38,7 +38,6 @@ struct ThermostatConfiguration {
     var minimumAngle: CGFloat { temperature.minimum * degreesPerTemperatureUnit }
     var maximumAngle: CGFloat { temperature.maximum * degreesPerTemperatureUnit }
     var angleRange: CGFloat { maximumAngle - minimumAngle }
-
     
     var minimumFractionalAngle: CGFloat { minimumAngle / 360 }
     var maximumFractionalAngle: CGFloat { maximumAngle / 360 }

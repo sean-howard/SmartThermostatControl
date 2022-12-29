@@ -20,7 +20,7 @@ struct ThermometerSummaryView: View {
                 .opacity(showStatus ? 0.6 : 0)
                 .animation(.easeInOut(duration: 0.5), value: showStatus)
             
-            Text("\(temperature, specifier: "%.0f")")
+            Text("\(temperature, specifier: "%.1f")")
                 .font(.system(size: 54))
                 .foregroundColor(.white)
             
