@@ -20,7 +20,7 @@ struct ThermometerView: View {
     private let ringSize: CGFloat = 220
     private let outerDialSize: CGFloat = 200
     
-    private let temperatureChangeIncrements: CGFloat = 0.5
+    private let temperatureChangeIncrement: CGFloat = 0.5
     
     @State private var currentTemperature: CGFloat = 0
     @State private var degrees: CGFloat = 36
@@ -31,7 +31,7 @@ struct ThermometerView: View {
     @State private var angle: CGFloat = 0
     
     var targetTemperature: CGFloat {
-        let denominator: CGFloat = 2
+        let denominator: CGFloat = 1 / temperatureChangeIncrement
         let result: CGFloat = min(max(degrees / 360 * config.markersOnCircumference, config.temperature.minimum), config.temperature.maximum)
         let rounded = round(denominator * result) / denominator
         return rounded
@@ -100,6 +100,7 @@ struct ThermometerView: View {
                                 degrees = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
                             })
                     )
+                    .disabled(true)
                 
                 ThermometerSummaryView(
                     status: status,
@@ -108,12 +109,18 @@ struct ThermometerView: View {
                 )
             }
             HStack {
-                Button("-") {
-                    degrees -= temperatureChangeIncrements * config.degreesPerTemperatureUnit
+                Button {
+                    degrees -= temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                } label: {
+                    Text("–")
+                        .font(.largeTitle)
                 }
                 Spacer()
-                Button("+") {
-                    degrees += temperatureChangeIncrements * config.degreesPerTemperatureUnit
+                Button {
+                    degrees += temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                } label: {
+                    Text("+")
+                        .font(.largeTitle)
                 }
             }
             .padding(.horizontal, 20)
@@ -126,10 +133,10 @@ struct ThermometerView: View {
             switch status {
                 case .heating:
                     showStatus = true
-                    currentTemperature += temperatureChangeIncrements
+                    currentTemperature += temperatureChangeIncrement
                 case .cooling:
                     showStatus = true
-                    currentTemperature -= temperatureChangeIncrements
+                    currentTemperature -= temperatureChangeIncrement
                 case .reaching:
                     showStatus = false
                     break

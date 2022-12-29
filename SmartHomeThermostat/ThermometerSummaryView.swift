@@ -20,8 +20,8 @@ struct ThermometerSummaryView: View {
                 .opacity(showStatus ? 0.6 : 0)
                 .animation(.easeInOut(duration: 0.5), value: showStatus)
             
-            Text("\(temperature, specifier: "%.1f")")
-                .font(.system(size: 54))
+            Text("\(temperature, specifier: "%.1fºC")")
+                .font(.system(size: 48))
                 .foregroundColor(.white)
             
             Image(systemName: "leaf.fill")
