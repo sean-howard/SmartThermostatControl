@@ -23,7 +23,7 @@ struct ThermometerView: View {
     private let temperatureChangeIncrement: CGFloat = 0.5
     
     @State private var currentTemperature: CGFloat = 0
-    @State private var degrees: CGFloat = 36
+    @State private var targetDegreesAngle: CGFloat = 36
     @State private var showStatus = false
     
     @State private var x: CGFloat = 0
@@ -32,13 +32,13 @@ struct ThermometerView: View {
     
     var targetTemperature: CGFloat {
         let denominator: CGFloat = 1 / temperatureChangeIncrement
-        let result: CGFloat = min(max(degrees / 360 * config.markersOnCircumference, config.temperature.minimum), config.temperature.maximum)
+        let result: CGFloat = min(max(targetDegreesAngle / 360 * config.markersOnCircumference, config.temperature.minimum), config.temperature.maximum)
         let rounded = round(denominator * result) / denominator
         return rounded
     }
     
-    var ringValue: CGFloat {
-        return currentTemperature / config.markersOnCircumference
+    var currentDegreesAngle: CGFloat {
+        return currentTemperature / config.markersOnCircumference * 360
     }
     
     var status: Status {
@@ -59,27 +59,12 @@ struct ThermometerView: View {
         VStack {
             ZStack {
                 // MARK: Thermometer Scale
-                ThermometerScaleView(currentDegrees: degrees)
+                ThermometerScaleView(
+                    currentDegrees: currentDegreesAngle,
+                    targetDegrees: targetDegreesAngle
+                )
                 
-                // MARK: Placeholder
-                ThermometerPlaceholderView().hidden()
-                
-                // MARK: Temperature Ring
-                Circle()
-                    .inset(by: 5)
-                    .trim(
-                        from: config.minimumFractionalAngle,
-                        to: min(ringValue, config.maximumFractionalAngle)
-                    )
-                    .stroke(
-                        LinearGradient([Color("Temperature Ring 1"), Color("Temperature Ring 2")]),
-                        style: .init(lineWidth: 10.0, lineCap: .round, lineJoin: .round)
-                    )
-                    .frame(width: ringSize, height: ringSize)
-                    .rotationEffect(.degrees(90))
-                    .animation(.linear(duration: 1), value: ringValue)
-                
-                ThermometerDialView(degrees: degrees)
+                ThermometerDialView(degrees: targetDegreesAngle)
                     .gesture(
                         DragGesture()
                             .onChanged({ value in
@@ -97,7 +82,7 @@ struct ThermometerView: View {
                                 if angle < config.minimumAngle || angle > config.maximumAngle { return }
                                 self.angle = angle
                                 
-                                degrees = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
+                                targetDegreesAngle = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
                             })
                     )
                 
@@ -107,30 +92,21 @@ struct ThermometerView: View {
                     temperature: currentTemperature
                 )
             }
-            HStack {
-                Button {
-                    if targetTemperature > config.temperature.minimum {
-                        degrees -= temperatureChangeIncrement * config.degreesPerTemperatureUnit
-                    }
-                } label: {
-                    Text("–")
-                        .font(.largeTitle)
-                }
-                Spacer()
-                Button {
-                    if targetTemperature < config.temperature.maximum {
-                        degrees += temperatureChangeIncrement * config.degreesPerTemperatureUnit
-                    }
-                } label: {
-                    Text("+")
-                        .font(.largeTitle)
-                }
+            controls
+            VStack(spacing: 0) {
+                
+                Text("TARGET TEMPERATURE")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Text("\(targetTemperature, specifier: "%.1fºC")")
+                    .font(.system(size: 48))
+                    .foregroundColor(.white)
             }
-            .padding(.horizontal, 20)
         }
         .onAppear {
             currentTemperature = 22
-            degrees = currentTemperature / config.markersOnCircumference * 360
+            targetDegreesAngle = currentTemperature / config.markersOnCircumference * 360
         }
         .onReceive(timer) { _ in
             switch status {
@@ -148,6 +124,30 @@ struct ThermometerView: View {
         .onDisappear {
             timer.upstream.connect().cancel()
         }
+    }
+    
+    private var controls: some View {
+        HStack {
+            Button {
+                if targetTemperature > config.temperature.minimum {
+                    targetDegreesAngle -= temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                }
+            } label: {
+                Text("–")
+                    .font(.largeTitle)
+            }
+            Spacer()
+            Button {
+                if targetTemperature < config.temperature.maximum {
+                    targetDegreesAngle += temperatureChangeIncrement * config.degreesPerTemperatureUnit
+                }
+            } label: {
+                Text("+")
+                    .font(.largeTitle)
+            }
+        }
+        .padding(.horizontal, 70)
+        .padding(.bottom, 20)
     }
 }
 

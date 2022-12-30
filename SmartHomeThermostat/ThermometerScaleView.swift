@@ -13,12 +13,14 @@ struct ThermometerScaleView: View {
     private let scaleSize: CGFloat = 300
 
     var currentDegrees: CGFloat = 0
-    private var degreesOfSeparation: CGFloat { config.angleRange / CGFloat(config.numberOfMarkers) }
+    var targetDegrees: CGFloat = 0
+    
+    private var markerSpacingDegrees: CGFloat { config.angleRange / CGFloat(config.numberOfMarkers) }
     
     var body: some View {
         ZStack {
             ForEach(0..<config.numberOfMarkers, id: \.self) { line in
-                scaleLine(at: line)
+                scaleMarker(at: line)
             }
             .frame(width: scaleSize, height: scaleSize)
                 
@@ -27,13 +29,13 @@ struct ThermometerScaleView: View {
         }
     }
     
-    private func scaleLine(at line: Int) -> some View {
+    private func scaleMarker(at line: Int) -> some View {
         VStack {
             ScaleMarker(fillColor: .constant(scaleLineFillColor(at: line)))
             Spacer()
         }
         .rotationEffect(.degrees(config.minimumAngle))
-        .rotationEffect(.degrees(Double(line) * degreesOfSeparation - 180.0))
+        .rotationEffect(.degrees(Double(line) * markerSpacingDegrees - 180.0))
     }
     
     private var targetMarker: some View {
@@ -45,30 +47,18 @@ struct ThermometerScaleView: View {
                 .cornerRadius(20)
             Spacer()
         }
-        .rotationEffect(.degrees(currentDegrees - 180.0))
-        .animation(.easeInOut(duration: 1), value: currentDegrees)
+        .rotationEffect(.degrees(targetDegrees - 180.0))
+        .animation(.easeInOut(duration: 1), value: targetDegrees)
     }
     
     private func scaleLineFillColor(at line: Int) -> Color {
-        let lowerThreshold = currentDegrees - 120
-        let linePositionDegrees = (Double(line) * degreesOfSeparation) + config.minimumAngle
+        let linePositionDegrees = (Double(line) * markerSpacingDegrees) + config.minimumAngle
         
         if linePositionDegrees > currentDegrees {
             return .blue.opacity(0.03)
         }
-        
-        if linePositionDegrees < lowerThreshold {
-            return .blue
-        }
 
-        let range = currentDegrees - lowerThreshold
-        let correctedStartValue = linePositionDegrees - lowerThreshold
-        let percentage = correctedStartValue / range
-        
-        var opacity = abs(1-percentage)
-        if opacity < 0.04 { opacity = 0.04 }
-        
-        return .blue.opacity(opacity)
+        return .blue
     }
 }
 

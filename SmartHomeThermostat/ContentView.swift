@@ -9,36 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color("Background")
-                    .ignoresSafeArea()
-
-                VStack(spacing: 0) {
-                    
-                    ThermometerView()
-                        .padding(.top, 30)
-                        .padding(.bottom, 60)
-                    
-                    HStack(spacing: 20) {
-                        ClimateCard(
-                            iconName: "humidity.fill",
-                            index: "Inside humidity",
-                            measure: "49%"
-                        )
-                        
-                        ClimateCard(
-                            iconName: "thermometer",
-                            index: "Outside temp.",
-                            measure: "-10°"
-                        )
-                    }
-                }
-            }
-            .navigationTitle("Thermostat")
-            .navigationBarTitleDisplayMode(.inline)
+        ZStack {
+            Color("Background")
+                .ignoresSafeArea()
+            
+            ThermometerView()
+                .padding(.top, 30)
         }
-        .navigationViewStyle(.stack)
     }
 }
 

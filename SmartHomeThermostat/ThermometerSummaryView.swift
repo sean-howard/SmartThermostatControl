@@ -14,22 +14,19 @@ struct ThermometerSummaryView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text(status.rawValue)
-                .font(.headline)
-                .foregroundColor(.white)
-                .opacity(showStatus ? 0.6 : 0)
-                .animation(.easeInOut(duration: 0.5), value: showStatus)
-            
             Text("\(temperature, specifier: "%.1fºC")")
                 .font(.system(size: 48))
                 .foregroundColor(.white)
             
-            Image(systemName: "leaf.fill")
-                .font(.title2.bold())
-                .foregroundColor(.green)
-            
+            if showStatus {
+                Text(status.rawValue)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .opacity(showStatus ? 0.6 : 0)
+                    .animation(.easeInOut(duration: 0.5), value: showStatus)
+            }
         }
-        .padding(.top, 40)
+        .animation(.easeOut(duration: 1), value: showStatus)
     }
 }
 
