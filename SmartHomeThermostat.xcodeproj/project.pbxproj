@@ -18,6 +18,7 @@
 		F615103A2953516D005D52A4 /* ThermometerDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61510392953516D005D52A4 /* ThermometerDialView.swift */; };
 		F615103C295354AF005D52A4 /* ThermometerSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */; };
 		F615103E29535609005D52A4 /* ThermometerScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103D29535609005D52A4 /* ThermometerScaleView.swift */; };
+		F617D61E295EFFE100E64E37 /* ScaleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617D61D295EFFE100E64E37 /* ScaleMarker.swift */; };
 		F6C0CC8429565738009382F1 /* ThermostatConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0CC8329565738009382F1 /* ThermostatConfiguration.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		F61510392953516D005D52A4 /* ThermometerDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerDialView.swift; sourceTree = "<group>"; };
 		F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerSummaryView.swift; sourceTree = "<group>"; };
 		F615103D29535609005D52A4 /* ThermometerScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerScaleView.swift; sourceTree = "<group>"; };
+		F617D61D295EFFE100E64E37 /* ScaleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScaleMarker.swift; path = SmartHomeThermostat/ScaleMarker.swift; sourceTree = "<group>"; };
 		F6C0CC8329565738009382F1 /* ThermostatConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermostatConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,6 +53,7 @@
 		F615101729534443005D52A4 = {
 			isa = PBXGroup;
 			children = (
+				F617D61D295EFFE100E64E37 /* ScaleMarker.swift */,
 				F615102229534443005D52A4 /* SmartHomeThermostat */,
 				F615102129534443005D52A4 /* Products */,
 			);
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F617D61E295EFFE100E64E37 /* ScaleMarker.swift in Sources */,
 				F615102629534443005D52A4 /* ContentView.swift in Sources */,
 				F615103629534B1E005D52A4 /* ThermometerView.swift in Sources */,
 				F615103829534B50005D52A4 /* ThermometerPlaceholderView.swift in Sources */,
