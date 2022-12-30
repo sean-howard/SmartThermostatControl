@@ -29,11 +29,7 @@ struct ThermometerScaleView: View {
     
     private func scaleLine(at line: Int) -> some View {
         VStack {
-            Trapezoid(percent: 10)
-                .fill(scaleLineFillColor(at: line))
-                .frame(width: 6, height: 22)
-                .rotationEffect(.degrees(180))
-                .cornerRadius(20)
+            ScaleMarker(fillColor: .constant(scaleLineFillColor(at: line)))
             Spacer()
         }
         .rotationEffect(.degrees(config.minimumAngle))
@@ -81,6 +77,20 @@ struct ThemometerScaleView_Previews: PreviewProvider {
         ThermometerScaleView(currentDegrees: 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color("Background"))
+    }
+}
+
+struct ScaleMarker: View {
+    
+    @Binding var fillColor: Color
+    
+    var body: some View {
+        Trapezoid(percent: 10)
+            .fill(fillColor)
+            .frame(width: 6, height: 22)
+            .rotationEffect(.degrees(180))
+            .cornerRadius(20)
+            .animation(.linear(duration: 1), value: fillColor)
     }
 }
 
