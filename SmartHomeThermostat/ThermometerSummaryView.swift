@@ -14,7 +14,7 @@ struct ThermometerSummaryView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text("\(temperature, specifier: "%.1fºC")")
+            Text(TemperatureFormatter.formatted(celcius: temperature))
                 .font(.system(size: 48))
                 .foregroundColor(.white)
             

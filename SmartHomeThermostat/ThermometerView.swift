@@ -20,7 +20,7 @@ struct ThermometerView: View {
     private let ringSize: CGFloat = 220
     private let outerDialSize: CGFloat = 200
     
-    private let temperatureChangeIncrement: CGFloat = 0.5
+    private let temperatureChangeIncrement: CGFloat = 1
     
     @State private var currentTemperature: CGFloat = 0
     @State private var targetDegreesAngle: CGFloat = 36
@@ -99,7 +99,7 @@ struct ThermometerView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                 
-                Text("\(targetTemperature, specifier: "%.1fºC")")
+                Text(TemperatureFormatter.formatted(celcius: targetTemperature))
                     .font(.system(size: 48))
                     .foregroundColor(.white)
             }
