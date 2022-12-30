@@ -23,7 +23,7 @@ struct ThermometerScaleView: View {
                 scaleMarker(at: line)
             }
             .frame(width: scaleSize, height: scaleSize)
-                
+
             targetMarker
                 .frame(width: scaleSize * 1.05, height: scaleSize * 1.05)
         }
@@ -55,10 +55,42 @@ struct ThermometerScaleView: View {
         let linePositionDegrees = (Double(line) * markerSpacingDegrees) + config.minimumAngle
         
         if linePositionDegrees > currentDegrees {
-            return .blue.opacity(0.03)
+            return increasing(linePositionDegrees: linePositionDegrees)
+        } else {
+            return decreasing(linePositionDegrees: linePositionDegrees)
         }
+    }
 
+    private func decreasing(linePositionDegrees: CGFloat) -> Color {
+        if linePositionDegrees > targetDegrees {
+            
+            let lowerThreshold = currentDegrees - 120
+            let range = currentDegrees - lowerThreshold
+            let scaledStartValue = linePositionDegrees - lowerThreshold
+            let percentage = scaledStartValue / range
+            
+            var opacity = abs(1-percentage)
+            if opacity < 0.04 { opacity = 0.04 }
+
+            return .blue.opacity(opacity)
+        }
         return .blue
+    }
+    
+    private func increasing(linePositionDegrees: CGFloat) -> Color {
+        
+        if linePositionDegrees < targetDegrees {
+            let upperThreshold = currentDegrees + 30
+            let range = upperThreshold - currentDegrees
+            let scaledStartValue = linePositionDegrees - upperThreshold
+            var opacity = abs(scaledStartValue / range)
+
+            if linePositionDegrees > currentDegrees && linePositionDegrees < upperThreshold {
+                if opacity < 0.04 { opacity = 0.04 }
+                return .blue.opacity(opacity)
+            }
+        }
+        return .blue.opacity(0.03)
     }
 }
 
