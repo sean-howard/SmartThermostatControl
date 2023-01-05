@@ -17,9 +17,13 @@ struct ThermometerSummaryView: View {
             Text(TemperatureFormatter.formatted(celcius: temperature))
                 .font(.system(size: 48))
                 .foregroundColor(.white)
+            
+            Text("CURRENT TEMPERATURE")
+                .font(.headline)
+                .foregroundColor(.white)
 
             Text(status.rawValue)
-                .font(.headline)
+                .font(.subheadline)
                 .foregroundColor(.white)
                 .opacity(showStatus ? 0.6 : 0)
                 .animation(.easeInOut(duration: 0.5), value: showStatus)        

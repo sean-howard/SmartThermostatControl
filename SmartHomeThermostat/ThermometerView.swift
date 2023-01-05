@@ -64,6 +64,7 @@ struct ThermometerView: View {
                     targetDegrees: targetDegreesAngle
                 )
                 
+                /*
                 ThermometerDialView(degrees: targetDegreesAngle)
                     .gesture(
                         DragGesture()
@@ -84,7 +85,7 @@ struct ThermometerView: View {
                                 
                                 targetDegreesAngle = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
                             })
-                    )
+                    ) */
                 
                 ThermometerSummaryView(
                     status: status,
