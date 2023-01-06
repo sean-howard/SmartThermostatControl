@@ -69,6 +69,9 @@ struct ThermometerScaleView: View {
     }
     
     /// Calculates the fill colour for scale markers positioned AFTER the target temperature marker
+    ///
+    /// ALT: Fading down to the target temperature marker when cooling down
+    ///
     /// - Parameter linePositionDegrees: Angular position of the scale marker
     /// - Returns: Fill colour
     private func colourAfterTarget(linePositionDegrees: CGFloat) -> Color {
@@ -92,6 +95,9 @@ struct ThermometerScaleView: View {
     }
     
     /// Calculates the fill colour for scale markers positioned BEFORE the target temperature marker
+    ///
+    /// ALT: Fading up to the target temperature marker when heating up
+    ///
     /// - Parameter linePositionDegrees: Angular position of the scale marker
     /// - Returns: Fill colour
     private func colourBeforeTarget(linePositionDegrees: CGFloat) -> Color {
@@ -108,10 +114,9 @@ struct ThermometerScaleView: View {
             return .blue.opacity(opacity)
         }
         
-        // If the scaler marker falls outside of the threshold for a fade then return the default ON colour
+        // If the scale marker falls outside of the threshold for a fade then return the default ON colour
         return .blue
     }
-    
 }
 
 struct ThemometerScaleView_Previews: PreviewProvider {
