@@ -14,6 +14,7 @@ struct TemperatureFormatter {
         formatter.numberFormatter.maximumFractionDigits = 1
                 
         let temperature = Measurement(value: celcius, unit: UnitTemperature.celsius)
+        // Hard coded to always show celcius. "en_US" will do an automatic conversion from celcious to farenheit
         formatter.locale = Locale(identifier: "en_GB")
         return formatter.string(from: temperature)
     }

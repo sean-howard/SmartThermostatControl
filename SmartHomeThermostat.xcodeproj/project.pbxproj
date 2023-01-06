@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F60F919A29686C52007E34F8 /* Trapezoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60F919929686C52007E34F8 /* Trapezoid.swift */; };
 		F615102429534443005D52A4 /* SmartHomeThermostatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615102329534443005D52A4 /* SmartHomeThermostatApp.swift */; };
 		F615102629534443005D52A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615102529534443005D52A4 /* ContentView.swift */; };
 		F615102829534444005D52A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F615102729534444005D52A4 /* Assets.xcassets */; };
 		F615102B29534444005D52A4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F615102A29534444005D52A4 /* Preview Assets.xcassets */; };
-		F61510322953476A005D52A4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61510312953476A005D52A4 /* Extensions.swift */; };
 		F615103629534B1E005D52A4 /* ThermometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103529534B1E005D52A4 /* ThermometerView.swift */; };
-		F615103A2953516D005D52A4 /* ThermometerDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61510392953516D005D52A4 /* ThermometerDialView.swift */; };
 		F615103C295354AF005D52A4 /* ThermometerSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */; };
 		F615103E29535609005D52A4 /* ThermometerScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F615103D29535609005D52A4 /* ThermometerScaleView.swift */; };
 		F617D61E295EFFE100E64E37 /* ScaleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617D61D295EFFE100E64E37 /* ScaleMarker.swift */; };
@@ -22,14 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F60F919929686C52007E34F8 /* Trapezoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trapezoid.swift; sourceTree = "<group>"; };
 		F615102029534443005D52A4 /* SmartHomeThermostat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartHomeThermostat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F615102329534443005D52A4 /* SmartHomeThermostatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartHomeThermostatApp.swift; sourceTree = "<group>"; };
 		F615102529534443005D52A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F615102729534444005D52A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F615102A29534444005D52A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F61510312953476A005D52A4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F615103529534B1E005D52A4 /* ThermometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerView.swift; sourceTree = "<group>"; };
-		F61510392953516D005D52A4 /* ThermometerDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerDialView.swift; sourceTree = "<group>"; };
 		F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerSummaryView.swift; sourceTree = "<group>"; };
 		F615103D29535609005D52A4 /* ThermometerScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThermometerScaleView.swift; sourceTree = "<group>"; };
 		F617D61D295EFFE100E64E37 /* ScaleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleMarker.swift; sourceTree = "<group>"; };
@@ -48,6 +46,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F60F919829686C34007E34F8 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				F617D61D295EFFE100E64E37 /* ScaleMarker.swift */,
+				F60F919929686C52007E34F8 /* Trapezoid.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		F60F919B29686C6D007E34F8 /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				F617D61F295F156400E64E37 /* TemperatureFormatter.swift */,
+			);
+			path = Formatter;
+			sourceTree = "<group>";
+		};
 		F615101729534443005D52A4 = {
 			isa = PBXGroup;
 			children = (
@@ -67,16 +82,14 @@
 		F615102229534443005D52A4 /* SmartHomeThermostat */ = {
 			isa = PBXGroup;
 			children = (
-				F617D61D295EFFE100E64E37 /* ScaleMarker.swift */,
 				F615102329534443005D52A4 /* SmartHomeThermostatApp.swift */,
 				F615102529534443005D52A4 /* ContentView.swift */,
-				F617D61F295F156400E64E37 /* TemperatureFormatter.swift */,
 				F6C0CC8329565738009382F1 /* ThermostatConfiguration.swift */,
 				F615103529534B1E005D52A4 /* ThermometerView.swift */,
 				F615103D29535609005D52A4 /* ThermometerScaleView.swift */,
 				F615103B295354AF005D52A4 /* ThermometerSummaryView.swift */,
-				F61510392953516D005D52A4 /* ThermometerDialView.swift */,
-				F61510312953476A005D52A4 /* Extensions.swift */,
+				F60F919829686C34007E34F8 /* Shapes */,
+				F60F919B29686C6D007E34F8 /* Formatter */,
 				F615102729534444005D52A4 /* Assets.xcassets */,
 				F615102929534444005D52A4 /* Preview Content */,
 			);
@@ -167,10 +180,9 @@
 				F617D620295F156400E64E37 /* TemperatureFormatter.swift in Sources */,
 				F6C0CC8429565738009382F1 /* ThermostatConfiguration.swift in Sources */,
 				F615103C295354AF005D52A4 /* ThermometerSummaryView.swift in Sources */,
-				F61510322953476A005D52A4 /* Extensions.swift in Sources */,
 				F615103E29535609005D52A4 /* ThermometerScaleView.swift in Sources */,
-				F615103A2953516D005D52A4 /* ThermometerDialView.swift in Sources */,
 				F615102429534443005D52A4 /* SmartHomeThermostatApp.swift in Sources */,
+				F60F919A29686C52007E34F8 /* Trapezoid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
