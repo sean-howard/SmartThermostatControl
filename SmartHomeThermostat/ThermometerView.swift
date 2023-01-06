@@ -16,20 +16,12 @@ enum Status: String {
 struct ThermometerView: View {
     
     private let config = ThermostatConfiguration.standard
-    
-    private let ringSize: CGFloat = 220
-    private let outerDialSize: CGFloat = 200
-    
     private let temperatureChangeIncrement: CGFloat = 1
     
     @State private var currentTemperature: CGFloat = 0
     @State private var targetDegreesAngle: CGFloat = 36
     @State private var showStatus = false
-    
-    @State private var x: CGFloat = 0
-    @State private var y: CGFloat = 0
-    @State private var angle: CGFloat = 0
-    
+        
     var targetTemperature: CGFloat {
         let denominator: CGFloat = 1 / temperatureChangeIncrement
         let result: CGFloat = min(max(targetDegreesAngle / 360 * config.markersOnCircumference, config.temperature.minimum), config.temperature.maximum)
@@ -37,6 +29,7 @@ struct ThermometerView: View {
         return rounded
     }
     
+    // To eventually be polled from an external data source
     var currentDegreesAngle: CGFloat {
         return currentTemperature / config.markersOnCircumference * 360
     }
@@ -63,7 +56,7 @@ struct ThermometerView: View {
                     currentDegrees: currentDegreesAngle,
                     targetDegrees: targetDegreesAngle
                 )
-
+                
                 ThermometerSummaryView(
                     status: status,
                     showStatus: showStatus,
@@ -71,16 +64,7 @@ struct ThermometerView: View {
                 )
             }
             controls
-            VStack(spacing: 0) {
-                
-                Text("TARGET TEMPERATURE")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                
-                Text(TemperatureFormatter.formatted(celcius: targetTemperature))
-                    .font(.system(size: 48))
-                    .foregroundColor(.white)
-            }
+            targetTemperatureSummary
         }
         .onAppear {
             currentTemperature = 22
@@ -154,5 +138,17 @@ extension ThermometerView {
         }
         .padding(.horizontal, 70)
         .padding(.bottom, 20)
+    }
+    
+    private var targetTemperatureSummary: some View {
+        VStack(spacing: 0) {
+            Text("TARGET TEMPERATURE")
+                .font(.headline)
+                .foregroundColor(.white)
+            
+            Text(TemperatureFormatter.formatted(celcius: targetTemperature))
+                .font(.system(size: 48))
+                .foregroundColor(.white)
+        }
     }
 }

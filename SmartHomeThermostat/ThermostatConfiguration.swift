@@ -16,7 +16,7 @@ struct ThermostatConfiguration {
         ),
         viewConfig: .init(
             startAngle: 20, // Not implemented yet
-            endAndle: 340, // Not implemented yet
+            endAngle: 340, // Not implemented yet
             numberOfMarkers: 50,
             scaleFillColor: .blue,
             targetTemperatureIndicatorColor: .white
@@ -38,7 +38,7 @@ struct ThermostatConfiguration {
         
         /// Denotes the ending point for scale markers, where 0 degrees is at the bottom, 6 o'clock
         /// Not implemented yet
-        let endAndle: CGFloat
+        let endAngle: CGFloat
 
         /// Number of temperature scale markers drawn around the circumference of the visible scale.
         let numberOfMarkers: Int
