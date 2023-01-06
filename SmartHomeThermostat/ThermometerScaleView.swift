@@ -15,16 +15,17 @@ struct ThermometerScaleView: View {
     var currentDegrees: CGFloat = 0
     var targetDegrees: CGFloat = 0
     
-    private var markerSpacingDegrees: CGFloat { config.angleRange / CGFloat(config.numberOfMarkers) }
+    /// Denotes the distance between scale markers
+    private var markerSpacingDegrees: CGFloat { config.angleRange / CGFloat(config.viewConfig.numberOfMarkers) }
     
     var body: some View {
         ZStack {
-            ForEach(0..<config.numberOfMarkers, id: \.self) { line in
+            ForEach(0..<config.viewConfig.numberOfMarkers, id: \.self) { line in
                 scaleMarker(at: line)
             }
             .frame(width: scaleSize, height: scaleSize)
 
-            targetMarker
+            targetTemperatureIndicator
                 .frame(width: scaleSize * 1.05, height: scaleSize * 1.05)
         }
     }
@@ -42,10 +43,10 @@ struct ThermometerScaleView: View {
     }
     
     /// Draws the white marker line indicating the target temperature
-    private var targetMarker: some View {
+    private var targetTemperatureIndicator: some View {
         VStack {
             Trapezoid(percent: 10)
-                .fill(.white)
+                .fill(config.viewConfig.targetTemperatureIndicatorColor)
                 .frame(width: 8, height: 36)
                 .rotationEffect(.degrees(180))
                 .cornerRadius(20)
@@ -76,6 +77,8 @@ struct ThermometerScaleView: View {
     /// - Returns: Fill colour
     private func colourAfterTarget(linePositionDegrees: CGFloat) -> Color {
         
+        let baseColor = config.viewConfig.scaleFillColor
+        
         if linePositionDegrees < targetDegrees {
             let upperThreshold = currentDegrees + 30
             let range = upperThreshold - currentDegrees
@@ -88,10 +91,10 @@ struct ThermometerScaleView: View {
                 var opacity = abs(scaledStartValue / range)
                 
                 if opacity < 0.04 { opacity = 0.04 }
-                return .blue.opacity(opacity)
+                return baseColor.opacity(opacity)
             }
         }
-        return .blue.opacity(0.03) // Default OFF colour
+        return baseColor.opacity(0.03) // Default OFF colour
     }
     
     /// Calculates the fill colour for scale markers positioned BEFORE the target temperature marker
@@ -101,7 +104,8 @@ struct ThermometerScaleView: View {
     /// - Parameter linePositionDegrees: Angular position of the scale marker
     /// - Returns: Fill colour
     private func colourBeforeTarget(linePositionDegrees: CGFloat) -> Color {
-                
+        let baseColor = config.viewConfig.scaleFillColor
+        
         if linePositionDegrees > targetDegrees {
             let lowerThreshold = currentDegrees - 120
             let range = currentDegrees - lowerThreshold
@@ -111,11 +115,11 @@ struct ThermometerScaleView: View {
             var opacity = abs(1-percentage)
             if opacity < 0.04 { opacity = 0.04 }
 
-            return .blue.opacity(opacity)
+            return baseColor.opacity(opacity)
         }
         
         // If the scale marker falls outside of the threshold for a fade then return the default ON colour
-        return .blue
+        return baseColor
     }
 }
 
