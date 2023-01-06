@@ -29,6 +29,9 @@ struct ThermometerScaleView: View {
         }
     }
     
+    /// Draws a new scale marker with a rectangular frame and rotates it by `markerSpacingDegrees` each time around a centre point
+    /// - Parameter line: Index of scale marker
+    /// - Returns: View
     private func scaleMarker(at line: Int) -> some View {
         VStack {
             ScaleMarker(fillColor: .constant(scaleLineFillColor(at: line)))
@@ -38,6 +41,7 @@ struct ThermometerScaleView: View {
         .rotationEffect(.degrees(Double(line) * markerSpacingDegrees - 180.0))
     }
     
+    /// Draws the white marker line indicating the target temperature
     private var targetMarker: some View {
         VStack {
             Trapezoid(percent: 10)
@@ -51,19 +55,48 @@ struct ThermometerScaleView: View {
         .animation(.easeInOut(duration: 1), value: targetDegrees)
     }
     
+    /// Returns a fill colour for the scale marker based on it's position, and it's proximity either side of the target temperature depending on its proximity to make a fade effect.
+    /// - Parameter line: Index of scale marker
+    /// - Returns: Fill color
     private func scaleLineFillColor(at line: Int) -> Color {
         let linePositionDegrees = (Double(line) * markerSpacingDegrees) + config.minimumAngle
         
         if linePositionDegrees > currentDegrees {
-            return increasing(linePositionDegrees: linePositionDegrees)
+            return colourAfterTarget(linePositionDegrees: linePositionDegrees)
         } else {
-            return decreasing(linePositionDegrees: linePositionDegrees)
+            return colourBeforeTarget(linePositionDegrees: linePositionDegrees)
         }
     }
-
-    private func decreasing(linePositionDegrees: CGFloat) -> Color {
-        if linePositionDegrees > targetDegrees {
+    
+    /// Calculates the fill colour for scale markers positioned AFTER the target temperature marker
+    /// - Parameter linePositionDegrees: Angular position of the scale marker
+    /// - Returns: Fill colour
+    private func colourAfterTarget(linePositionDegrees: CGFloat) -> Color {
+        
+        if linePositionDegrees < targetDegrees {
+            let upperThreshold = currentDegrees + 30
+            let range = upperThreshold - currentDegrees
             
+            /// The the scale marker position falls between the `currentDegree + 30º` then calculate it's relative position as a percentage
+            /// Map the percentage to an opacity to apply to the colour so it fades from a solid colour to "off"
+            if linePositionDegrees > currentDegrees && linePositionDegrees < upperThreshold {
+                
+                let scaledStartValue = linePositionDegrees - upperThreshold
+                var opacity = abs(scaledStartValue / range)
+                
+                if opacity < 0.04 { opacity = 0.04 }
+                return .blue.opacity(opacity)
+            }
+        }
+        return .blue.opacity(0.03) // Default OFF colour
+    }
+    
+    /// Calculates the fill colour for scale markers positioned BEFORE the target temperature marker
+    /// - Parameter linePositionDegrees: Angular position of the scale marker
+    /// - Returns: Fill colour
+    private func colourBeforeTarget(linePositionDegrees: CGFloat) -> Color {
+                
+        if linePositionDegrees > targetDegrees {
             let lowerThreshold = currentDegrees - 120
             let range = currentDegrees - lowerThreshold
             let scaledStartValue = linePositionDegrees - lowerThreshold
@@ -74,24 +107,11 @@ struct ThermometerScaleView: View {
 
             return .blue.opacity(opacity)
         }
+        
+        // If the scaler marker falls outside of the threshold for a fade then return the default ON colour
         return .blue
     }
     
-    private func increasing(linePositionDegrees: CGFloat) -> Color {
-        
-        if linePositionDegrees < targetDegrees {
-            let upperThreshold = currentDegrees + 30
-            let range = upperThreshold - currentDegrees
-            let scaledStartValue = linePositionDegrees - upperThreshold
-            var opacity = abs(scaledStartValue / range)
-
-            if linePositionDegrees > currentDegrees && linePositionDegrees < upperThreshold {
-                if opacity < 0.04 { opacity = 0.04 }
-                return .blue.opacity(opacity)
-            }
-        }
-        return .blue.opacity(0.03)
-    }
 }
 
 struct ThemometerScaleView_Previews: PreviewProvider {

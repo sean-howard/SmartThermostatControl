@@ -24,7 +24,7 @@ struct ThermostatConfiguration {
         let maximum: CGFloat
     }
 
-    /// Number of markers
+    /// Number of temperature scale markers drawn around the circumference of the visible scale.
     let numberOfMarkers: Int
     
     /// Degrees of rotation per unit of temperature

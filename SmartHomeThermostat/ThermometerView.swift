@@ -63,30 +63,7 @@ struct ThermometerView: View {
                     currentDegrees: currentDegreesAngle,
                     targetDegrees: targetDegreesAngle
                 )
-                
-                /*
-                ThermometerDialView(degrees: targetDegreesAngle)
-                    .gesture(
-                        DragGesture()
-                            .onChanged({ value in
-                                let x = min(max(value.location.x, 0), outerDialSize)
-                                let y = min(max(value.location.y, 0), outerDialSize)
-                                
-                                self.x = x
-                                self.y = y
-                                
-                                let endPoint = CGPoint(x: x, y: y)
-                                let centerPoint = CGPoint(x: outerDialSize / 2, y: outerDialSize / 2)
-                                
-                                let angle = calculateAngle(centerPoint: centerPoint, endPoint: endPoint)
-                                
-                                if angle < config.minimumAngle || angle > config.maximumAngle { return }
-                                self.angle = angle
-                                
-                                targetDegreesAngle = angle - angle.remainder(dividingBy: config.degreesPerTemperatureUnit)
-                            })
-                    ) */
-                
+
                 ThermometerSummaryView(
                     status: status,
                     showStatus: showStatus,
@@ -110,23 +87,51 @@ struct ThermometerView: View {
             targetDegreesAngle = currentTemperature / config.markersOnCircumference * 360
         }
         .onReceive(timer) { _ in
-            switch status {
-                case .heating:
-                    showStatus = true
-                    currentTemperature += temperatureChangeIncrement
-                case .cooling:
-                    showStatus = true
-                    currentTemperature -= temperatureChangeIncrement
-                case .reaching:
-                    showStatus = false
-                    break
-            }
+            updateCurrentTemperature()
         }
         .onDisappear {
             timer.upstream.connect().cancel()
         }
     }
     
+    /// For the sake of mocking, each time the timer triggers we increment the `currentTemperature` until it's reached the `targetTemperature`.
+    /// In reality I aspect `currentTemperature` to set from an external data source like API polling.
+    ///
+    /// `status` is computed property updated based on `>` and `<` operators.
+    private func updateCurrentTemperature() {
+        switch status {
+            case .heating:
+                showStatus = true
+                currentTemperature += temperatureChangeIncrement
+            case .cooling:
+                showStatus = true
+                currentTemperature -= temperatureChangeIncrement
+            case .reaching:
+                showStatus = false
+                break
+        }
+    }
+}
+
+
+
+struct ThermometerView_Previews: PreviewProvider {
+    static var previews: some View {
+        ThermometerView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("Background"))
+    }
+}
+
+extension ThermometerView {
+    private func calculateAngle(centerPoint: CGPoint, endPoint: CGPoint) -> CGFloat {
+        let radians = atan2(endPoint.x - centerPoint.x, centerPoint.y - endPoint.y)
+        let degrees = 180 + (radians * 180 / .pi)
+        return degrees
+    }
+}
+
+extension ThermometerView {
     private var controls: some View {
         HStack {
             Button {
@@ -149,21 +154,5 @@ struct ThermometerView: View {
         }
         .padding(.horizontal, 70)
         .padding(.bottom, 20)
-    }
-}
-
-struct ThermometerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ThermometerView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("Background"))
-    }
-}
-
-extension ThermometerView {
-    private func calculateAngle(centerPoint: CGPoint, endPoint: CGPoint) -> CGFloat {
-        let radians = atan2(endPoint.x - centerPoint.x, centerPoint.y - endPoint.y)
-        let degrees = 180 + (radians * 180 / .pi)
-        return degrees
     }
 }
